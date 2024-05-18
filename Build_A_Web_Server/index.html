@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Todo List</h1>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter task">
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        {{range $index, $todo := .Todos}}
+            <li>
+                <del>{{$todo.Task}}</del>
+                <form action="/delete" method="post" style="display: inline;">
+                    <input type="hidden" name="index" value="{{$index}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {{end}}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Todos</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Todos</h1>
+        <form action="/add" method="post">
+            <input type="text" name="item" placeholder="What do you want to do?" required>
+            <button type="submit">Submit</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range $index, $todo := .}}
+                <tr>
+                    <td>{{$todo.Item}}</td>
+                    <td>{{$todo.Status}}</td>
+                    <td>
+                        {{if eq $todo.Status "Not Completed"}}
+                        <a href="/complete?index={{$index}}">Complete</a>
+                        {{end}}
+                        <a href="/delete?index={{$index}}">Delete</a>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
